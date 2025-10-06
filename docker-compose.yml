@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  express-api:
+    build: ./backend            
+    ports:
+      - "5000:5000"
+    networks:
+      - men-app
+    volumes:
+      - ./backend:/usr/src/app 
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    ports:
+    
+      - "27017:27017"
+    networks:
+      - men-app
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  men-app:
+    driver: bridge
+
+volumes:
+  mongo-data:
