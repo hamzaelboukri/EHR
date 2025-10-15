@@ -1,11 +1,19 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
-mongoose.connect("mongodb://127.0.0.1:27017/ehr") 
-.then(() => {
-    console.log("Connected to MongoDB");
-})
-.catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
-});
+const mongoURI = process.env.MONGODB_URI || "mongodb://mongo:27017/ehr";
 
-module.exports = mongoose;
+const connectDB = async () => {
+    try {
+        await mongoose.connect(mongoURI, {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        });
+        console.log("Connected to MongoDB");
+        return mongoose;
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error);
+        throw error;
+    }
+};
+
+export default connectDB;

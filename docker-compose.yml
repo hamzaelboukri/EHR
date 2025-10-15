@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   express-api:
@@ -12,6 +12,9 @@ services:
       - /usr/src/app/node_modules
     environment:
       - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/ehr
+      - JWT_ACCESS_SECRET=your-access-secret-key
+      - JWT_REFRESH_SECRET=your-refresh-secret-key
     command: npm run dev
     depends_on:
       - mongo
@@ -19,12 +22,13 @@ services:
   mongo:
     image: mongo:latest
     ports:
-    
       - "27017:27017"
     networks:
       - men-app
     volumes:
       - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=ehr
 
 networks:
   men-app:
