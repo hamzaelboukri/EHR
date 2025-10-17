@@ -32,10 +32,8 @@ class UserController {
 
             await user.save();
 
-            // Generate tokens
             const tokens = generateTokens({ userId: user._id, email: user.email });
 
-            // Save refresh token to user
             user.refreshToken = tokens.refreshToken;
             await user.save();
 

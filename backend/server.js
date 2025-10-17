@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/user.routes.js';
+import roleRoutes from './routes/role.routes.js'
+import permissionRoutes from './routes/permissions.routes.js'
 
 const app = express();
 const PORT = 5000;
@@ -10,8 +12,10 @@ app.use(express.json());
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use("/api/roles", roleRoutes);
+app.use("/api/permissions", permissionRoutes);
 
-// Health check with DB status
+
 app.get('/api/health', (req, res) => {
   const dbStatus = mongoose.connection.readyState;
   const status = dbStatus === 1 ? 'connected' : 'disconnected';
