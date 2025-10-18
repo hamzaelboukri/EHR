@@ -18,7 +18,6 @@ class AuthController {
             
             const decoded = verifyRefreshToken(refreshToken);
 
-            // Find user with this refresh token
             const user = await User.findOne({ 
                 _id: decoded.userId, 
                 refreshToken: refreshToken 

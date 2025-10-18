@@ -1,8 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/user.routes.js';
-import roleRoutes from './routes/role.routes.js'
-import permissionRoutes from './routes/permissions.routes.js'
+import roleRoutes from './routes/role.routes.js';
+import permissionRoutes from './routes/permissions.routes.js';
+import doctorRouts from './routes/Doctor.routes.js';
+import PatientRoutes from './routes/Patient.routes.js';
 
 const app = express();
 const PORT = 5000;
@@ -14,7 +16,8 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use("/api/roles", roleRoutes);
 app.use("/api/permissions", permissionRoutes);
-
+app.use("/api/doctor",doctorRouts)
+app.use("/api/Patient",PatientRoutes)
 
 app.get('/api/health', (req, res) => {
   const dbStatus = mongoose.connection.readyState;
