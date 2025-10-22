@@ -20,6 +20,14 @@ const PatientSchema = new mongoose.Schema({
   insurance: {
     company: String,
     policyNumber: String
+  },
+  
+  consentements: [{
+    type: String
+  }],
+  preferences: {
+    language: { type: String, default: "fr" },
+    communication: { type: String, enum: ["email", "phone", "sms"], default: "email" }
   }
 }, { timestamps: true });
 
